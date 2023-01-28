@@ -1,0 +1,55 @@
+//- we only want content not header and footer
+//- and then we will inject this to base (parent template)
+//- so whenever the overview template is rendered we take base templated and fill it up with content of this file and so we extend it
+//- imagine if we extend then all except content block will be copied to this page and this ooverview will rendered for specific url
+//- to extend
+extends base
+
+//- it will overwrite the block content in base.pug
+//- each file can extend only one other file
+block content 
+    main.main 
+        .card-container
+            //- iteration - we pass array of tours so we can loop in pug as below
+            each tour in tours 
+                .card
+                    .card__header
+                        .card__picture
+                            .card__picture-overlay &nbsp;
+                            //- to add image dynamically use template strings
+                            //- we can use template strings wherever string is wanted
+                            img.card__picture-img(src=`/img/tours/${tour.imageCover}`, alt=`{tour.name}`) 
+                        h3.heading-tertirary
+                            span= tour.name 
+
+                    .card__details
+                        h4.card__sub-heading= `${tour.difficulty} ${tour.duration}-day tour`
+                        p.card__text= `${tour.summary}`
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-map-pin')
+                            span= tour.startLocation.description
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-calendar')
+                            span= tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-flag')
+                            span=  `${tour.locations.length} stops`
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-user')
+                            span= `${tour.maxGroupSize} people`
+
+                    .card__footer
+                        p
+                            span.card__footer-value= `$${tour.price}`
+                            //- to add space between inline use this pipeline | with space otherwise it glues it
+                            | 
+                            span.card__footer-text per person
+                        p.card__ratings
+                            span.card__footer-value= tour.ratingsAverage
+                            | 
+                            span.card__footer-text= `rating (${tour.ratingsQuantity})`
+                        a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details

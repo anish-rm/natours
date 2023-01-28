@@ -1,0 +1,99 @@
+//- LEARNING PUG
+//- It is simple whitespace sensitive syntax for writing html
+//- To write html elements we only write their name and indentation
+//- to say one element is inside another element in pug we use indentation
+//- we can pass data to pug template that we can use here.. see route
+//- usually starts with
+doctype html
+html
+    head
+        block head
+            meta(charset='UTF-8')
+            meta(name='viewport' content='width=device-width, initial-scale=1.0')
+            //-  interpolation way 
+            //- title Natours | #{tour}
+            title Natours | #{title}
+            //- #{} --> it is like template string
+            //- we can put title = Natours #{}because natours is just a string
+
+            //- to add style
+            //- in html
+            //- <link rel="stylesheet" href="css/style.css" />
+            //- in pug we write only attributes, so.. We can use regular html with pug as above code just try
+            link(rel="stylesheet" href='/css/style.css')
+            link(rel='shortcut icon' type='image/png' href='img/favicon.png')
+            link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
+
+            //- how css load automatically?
+            //- easch of these assets actually triggers its own http request..confirm it in network panel in google
+            //- we dont have any route handler for css/style.css. But it is still a route get request for these
+            //- it is because of       app.use(express.static(path.join(__dirname, 'public')));
+            //- we say all static files will be server from public so only css/style.css comes from public
+
+    body 
+        //- to use data that we passed in at route
+        //- h1= tour
+        //- h2= user.toUpperCase()
+        //- this is called buffered code
+
+        //- we can also write unbffered code
+        //- it does not add anything to the output
+        //- - const x = 9;
+        //- h2= 2 * x
+
+        //- Another way is interpolation
+
+        //- h1 The Park Camper 
+        //- it translates to <h1> The park camper </h1>
+        //- p this is just some text
+         <head>
+        // HEADER
+        //- to specify class tag element.classname
+        //- header.header
+        //-     nav.nav.nav--tours
+        //-         a.nav__el(href='#') All tours
+        //-     //- when it is div we no need to say div. only . is enough
+        //-     .header__logo 
+        //-         img(src='img/logo-white.png' alt='Natours logo')
+        //-     nav.nav.nav--user 
+        //-         //- a.nav__el(href='#') My Bookings 
+        //-         //- a.nav__el(href='#') 
+        //-         //-     img.nav__user-img(src='img/user.jpg' alt='User photo')
+        //-         //-     span Jonas
+        //-         button.nav__el Log In
+        //-         button.nav__el.nav__el--cta Sign up
+                
+        //- we can create a separate file for header and just include that header file instead of code
+        include _header
+
+        //CONTENT
+        //- main.main 
+        //-     h1= tour
+        //- we will create block now refer why in overview
+        block content 
+            h1 This is a placeholder heading
+
+        //FOOTER
+        //- .footer 
+        //-     .footer__logo 
+        //-         img(src='img/logo-green.png' alt='Natours logo')
+        //-     ul.footer__nav 
+        //-         //- li: it will allow to put a tag on same line instead of writing below each time
+        //-         li: a(href='#') About us
+        //-         li: a(href='#') Download apps
+        //-         li: a(href='#') Become a guide
+        //-         li: a(href='#') Careers
+        //-         li: a(href='#') Contact
+        //-     p.footer__copyright &copy; by Anish. All rights reserved.
+        //- after creating separate file
+        include _footer
+
+        
+        //- script(src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js')
+        //- script(Content-Security-Policy: script-src 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js')
+        script(src="https://api.razorpay.com/v2" async)
+        script(src='/js/bundle.js')
+        
+
+
+    

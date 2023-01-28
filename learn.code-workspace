@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../mapims"
+		},
+		{
+			"path": "../../logic_research/todo-vuetify"
+		}
+	],
+	"settings": {
+		"nuxt.isNuxtApp": false
+	}
+}
